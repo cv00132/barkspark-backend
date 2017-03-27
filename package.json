@@ -1,7 +1,6 @@
 {
   "name": "backend-template",
   "version": "1.0.0",
-  "description": "",
   "main": "bin/server.js",
   "scripts": {
     "dev": "nodemon ./bin/server.js",
@@ -11,13 +10,28 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
+    "jwt-simple": "^0.5.1",
     "morgan": "^1.8.1",
+    "pg": "^6.1.5",
     "sequelize": "^3.30.4",
     "sqlite3": "^3.1.8"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
-  }
+  },
+  "bin": {
+    "backend-template": "server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cv00132/barkspark-backend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cv00132/barkspark-backend/issues"
+  },
+  "homepage": "https://github.com/cv00132/barkspark-backend#readme",
+  "description": ""
 }

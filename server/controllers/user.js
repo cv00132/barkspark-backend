@@ -19,7 +19,7 @@ module.exports = {
           profilePic: req.body.profilePic
      })
      .then(user => res.status(201).send(user))
-     .catch(error => res.status(400).send("testing route"));
+     .catch(error => res.status(400).send(error));
  },
 
     login (req, res) {

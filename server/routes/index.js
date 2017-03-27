@@ -1,5 +1,6 @@
 // Require your controllers here
 const UserController = require('../controllers/user');
+const DogController = require('../controllers/dog');
 
 
 module.exports = (app) => {
@@ -13,6 +14,9 @@ module.exports = (app) => {
 
   // Add your routes here
     app.post('/signUp', UserController.createUser);
+    app.post('/login', UserController.login);
+
+    app.post('/addDog', DogController.createDog);
 
 
 };

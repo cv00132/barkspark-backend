@@ -13,7 +13,10 @@ module.exports = {
           email: req.body.email,
           password: hashedPass,
           salt: salt,
-          birthday: req.body.DOB
+          DOB: req.body.birthday,
+          description: req.body.description,
+          location: req.body.location,
+          profilePic: req.body.profilePic
      })
      .then(user => res.status(201).send(user))
      .catch(error => res.status(400).send(error));

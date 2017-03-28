@@ -1,5 +1,6 @@
 const User = require('../models').User;
 const Dog = require('../models').Dog;
+const Post = require('../models').Post;
 const bcrypt = require('bcryptjs');
 const jwt = require('jwt-simple');
 const appSecrets = require('../config/secrets');
@@ -49,15 +50,15 @@ module.exports = {
            .catch(error => res.status(400).send(error));
        },
 
-       getDogs (req, res) {
+       getInfo (req, res) {
            User.findOne({
                where: {
                    id: req.params.id
                },
-               include: {
-                  model: Dog,
-              },
-              foreignKey: 'userId'
+               include: [
+                  { model: Dog },
+                  { model: Post }
+              ]
            })
            .then(user => res.status(201).send(user))
            .catch(error => res.status(400).send(error))

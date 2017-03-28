@@ -1,6 +1,8 @@
 const User = require('../models').User;
 const Dog = require('../models').Dog;
 const Post = require('../models').Post;
+const Photo = require('../models').Photo;
+const Comment = require('../models').Comment;
 const bcrypt = require('bcryptjs');
 const jwt = require('jwt-simple');
 const appSecrets = require('../config/secrets');
@@ -57,7 +59,8 @@ module.exports = {
                },
                include: [
                   { model: Dog },
-                  { model: Post }
+                  { model: Post, include: Comment },
+                  { model: Photo, include: Comment }
               ]
            })
            .then(user => res.status(201).send(user))

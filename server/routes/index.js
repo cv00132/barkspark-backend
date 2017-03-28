@@ -15,6 +15,7 @@ module.exports = (app) => {
   // Add your routes here
     app.post('/signUp', UserController.createUser);
     app.post('/login', UserController.login);
+    app.get('/users', UserController.getUsers);
 
     app.post('/:id/addDog', DogController.createDog);
     app.get('/:id/dogs', UserController.getDogs);

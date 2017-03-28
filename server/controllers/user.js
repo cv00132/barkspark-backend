@@ -1,7 +1,8 @@
-const User = require("../models").User;
+const User = require('../models').User;
+const Dog = require('../models').Dog;
 const bcrypt = require('bcryptjs');
 const jwt = require('jwt-simple');
-const appSecrets = require("../config/secrets");
+const appSecrets = require('../config/secrets');
 
 module.exports = {
 
@@ -20,7 +21,7 @@ module.exports = {
      })
      .then(user => res.status(201).send(user))
      .catch(error => res.status(400).send(error));
- },
+    },
 
     login (req, res) {
         User.findOne({
@@ -46,5 +47,19 @@ module.exports = {
             }
           })
            .catch(error => res.status(400).send(error));
-        }
+       },
+
+       getDogs (req, res) {
+           User.findOne({
+               where: {
+                   id: req.params.id
+               },
+               include: {
+                  model: Dog,
+              },
+              foreignKey: 'userId'
+           })
+           .then(user => res.status(201).send(user))
+           .catch(error => res.status(400).send(error))
+       }
 }

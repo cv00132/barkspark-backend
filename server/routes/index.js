@@ -17,6 +17,7 @@ module.exports = (app) => {
     app.post('/login', UserController.login);
 
     app.post('/:id/addDog', DogController.createDog);
+    app.get('/:id/dogs', UserController.getDogs);
 
 
 };

@@ -1,3 +1,6 @@
+// Require any middleware here.
+const middleware = require("../middleware");
+
 // Require your controllers here
 const UserController = require('../controllers/user');
 const DogController = require('../controllers/dog');
@@ -21,14 +24,14 @@ module.exports = (app) => {
     app.get('/users', UserController.getUsers);
     app.get('/user/:id', UserController.getInfo);
 
-    app.post('/:id/addDog', DogController.createDog);
+    app.post('/:id/addDog', middleware.authenticate, DogController.createDog);
 
-    app.post('/photo', PhotoController.uploadPhoto);
+    app.post('/photo', middleware.authenticate, PhotoController.uploadPhoto);
 
-    app.post('/post', PostController.addPost);
+    app.post('/post', middleware.authenticate, PostController.addPost);
 
-    app.post('/photo/:id/comment', CommentController.commentPhoto);
-    app.post('/post/:id/comment', CommentController.commentPost);
+    app.post('/photo/:id/comment', middleware.authenticate, CommentController.commentPhoto);
+    app.post('/post/:id/comment', middleware.authenticate, CommentController.commentPost);
 
 
 

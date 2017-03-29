@@ -16,6 +16,7 @@ module.exports = function(sequelize, DataTypes) {
         User.hasMany(models.Dog, { foreignKey:'userId' });
         User.hasMany(models.Post, { foreignKey:'userId' });
         User.hasMany(models.Photo, { foreignKey: 'userId' });
+        User.hasMany(models.Comment, { foreignKey: 'userId' });
       }
     }
   });

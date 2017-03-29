@@ -13,6 +13,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       photoUrl: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       caption: {

@@ -44,7 +44,7 @@ module.exports = {
                  user: user,
                  token: token
                };
-               return res.status(200).send(json);
+              return res.status(200).send(json);
             } else {
               return res.status(401).send({ message: "No such email or wrong password." })
             }
@@ -58,18 +58,88 @@ module.exports = {
                    id: req.params.id
                },
                include: [
-                  { model: Dog },
-                  { model: Post, include: Comment },
-                  { model: Photo, include: Comment }
+                  { model: Dog,
+                      attributes: [
+                          'name',
+                          'picture',
+                          'age',
+                          'breed',
+                          'description'
+                      ]
+                   },
+                   { model: Post,
+                       include: [{
+                           model: Comment,
+                           attributes: ['body']
+                       }],
+                       attributes: [
+                           'body',
+                       ]
+                   },
+                  { model: Photo,
+                      include: [{
+                          model: Comment,
+                          attributes:['body']
+                      }],
+                      attributes: [
+                          'photoUrl',
+                          'caption'
+                      ]
+                  }
+              ],
+              attributes: [
+                  'username',
+                  'location',
+                  'description',
+                  'profilePic'
               ]
            })
            .then(user => res.status(201).send(user))
            .catch(error => res.status(400).send(error))
        },
 
-       getUsers (req, res) {
-           User.findAll()
+       getUsersDev (req, res) {
+           User.findAll({
+               include: [
+                  { model: Dog },
+                  { model: Post, include: Comment },
+                  { model: Photo, include: Comment }
+              ]
+           })
                .then(user => res.status(201).send(user))
                .catch(error => res.status(400).send(error))
+       },
+
+       getUsers (req, res) {
+           User.findAll({
+               include: [{
+                   model: Dog,
+                   attributes: [
+                       'name',
+                       'picture'
+                   ]
+               }],
+               attributes: [
+                   'username',
+                   'profilePic',
+                   'location'
+               ]
+           })
+               .then(user => res.status(201).send(user))
+               .catch(error => res.status(400).send(error))
+       },
+
+       updateUser (req, res) {
+           User.findById({
+               where: {
+                   id: req.params.id
+               }})
+               .update([{
+                   description: req.body.description,
+                   location: req.body.location,
+                   profilePic: req.body.profilePic
+              }])
+              .then(user => res.status(201).send(user))
+              .catch(error => res.status(400).send(error))
        }
 }

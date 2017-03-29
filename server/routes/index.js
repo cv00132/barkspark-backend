@@ -21,10 +21,16 @@ module.exports = (app) => {
   // Add your routes here
     app.post('/signUp', UserController.createUser);
     app.post('/login', UserController.login);
+
+    //DELETE BEFORE PRODUCTION
+    app.get('/getusers', UserController.getUsersDev);
+
     app.get('/users', UserController.getUsers);
     app.get('/user/:id', UserController.getInfo);
+    app.put('/user/:id', middleware.authenticate, UserController.updateUser);
 
-    app.post('/:id/addDog', middleware.authenticate, DogController.createDog);
+
+    app.post('/addDog', middleware.authenticate, DogController.createDog);
 
     app.post('/photo', middleware.authenticate, PhotoController.uploadPhoto);
 

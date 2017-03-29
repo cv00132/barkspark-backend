@@ -60,6 +60,7 @@ module.exports = {
                include: [
                   { model: Dog,
                       attributes: [
+                          'id',
                           'name',
                           'picture',
                           'age',
@@ -70,24 +71,27 @@ module.exports = {
                    { model: Post,
                        include: [{
                            model: Comment,
-                           attributes: ['body']
+                           attributes: ['id','body']
                        }],
                        attributes: [
+                           'id',
                            'body',
                        ]
                    },
                   { model: Photo,
                       include: [{
                           model: Comment,
-                          attributes:['body']
+                          attributes:['id','body']
                       }],
                       attributes: [
+                          'id',
                           'photoUrl',
                           'caption'
                       ]
                   }
               ],
               attributes: [
+                  'id',
                   'username',
                   'location',
                   'description',

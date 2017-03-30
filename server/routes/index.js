@@ -5,6 +5,7 @@ const middleware = require("../middleware");
 const UserController = require('../controllers/user');
 const DogController = require('../controllers/dog');
 const PostController = require('../controllers/post');
+const CommentController = require('../controllers/comment');
 
 
 module.exports = (app) => {
@@ -31,7 +32,7 @@ module.exports = (app) => {
     app.post('/:id/addDog', /*middleware.authenticate,*/ DogController.createDog);
 
     app.post('/:id/post', /*middleware.authenticate,*/ PostController.addPost);
-    //app.post('/post/:id/comment', /*middleware.authenticate,*/ CommentController.commentPost);
+    app.post('/post/:id/comment', /*middleware.authenticate,*/ CommentController.addComment);
 
 
 };

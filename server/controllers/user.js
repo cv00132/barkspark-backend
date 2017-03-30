@@ -66,39 +66,12 @@ module.exports = {
                            'description'
                        ]
                    },
-                    // { model: Post,
-                    //     attributes: [
-                    //         'body',
-                    //         'photoUrl'
+                    { model: Post }
                 ],
-                     //}],
                     //    include: [
                     //        { model: Comment,
                     //            order: [
                     //                ['createdAt', 'ASC']
-                    //            ]
-                    //        }
-                    //    ],
-            //                    attributes: [
-            //                        'id',
-            //                        'body',
-            //                    ]
-            //                },
-            //                 { model: Photo,
-            //                    include: [
-            //                        { model: Comment,
-            //                            order: ["createdAt", 'ASC']
-            //                        }
-            //                    ],
-            //                    attributes: [
-            //                        'id',
-            //                        'photoUrl',
-            //                        'caption'
-            //                    ]
-            //                }
-            //            ]
-            //         }
-            //    ],
                attributes: [
                    'id',
                    'username',

@@ -7,6 +7,7 @@ const DogController = require('../controllers/dog');
 const PhotoController = require('../controllers/photo');
 const PostController = require('../controllers/post');
 const CommentController = require('../controllers/comment');
+const NewsfeedController = require('../controllers/newsfeed');
 
 
 module.exports = (app) => {
@@ -38,6 +39,8 @@ module.exports = (app) => {
 
     app.post('/photo/:id/comment', middleware.authenticate, CommentController.commentPhoto);
     app.post('/post/:id/comment', middleware.authenticate, CommentController.commentPost);
+
+    app.post('/user/newsfeed', /*middleware.authenticate,*/ NewsfeedController.createNewsfeed);
 
 
 

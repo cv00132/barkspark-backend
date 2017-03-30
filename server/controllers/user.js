@@ -3,6 +3,7 @@ const Dog = require('../models').Dog;
 const Post = require('../models').Post;
 const Photo = require('../models').Photo;
 const Comment = require('../models').Comment;
+const Newsfeed = require('../models').Newsfeed;
 const bcrypt = require('bcryptjs');
 const jwt = require('jwt-simple');
 const appSecrets = require('../config/secrets');
@@ -57,49 +58,57 @@ module.exports = {
                where: {
                    id: req.params.id
                },
+                attributes: [
+                    'id',
+                    'username',
+                    'location',
+                    'description',
+                    'profilePic'
+                ],
                include: [
-                  { model: Dog,
-                      attributes: [
-                          'id',
-                          'name',
-                          'picture',
-                          'age',
-                          'breed',
-                          'description'
-                      ]
-                   },
-                   { model: Post,
-                       include: [{
-                           model: Comment,
-                           attributes: ['id','body']
-                       }],
+                    { model: Dog,
                        attributes: [
                            'id',
-                           'body',
+                           'name',
+                           'picture',
+                           'age',
+                           'breed',
+                           'description'
                        ]
                    },
-                  { model: Photo,
-                      include: [{
-                          model: Comment,
-                          attributes:['id','body']
-                      }],
-                      attributes: [
-                          'id',
-                          'photoUrl',
-                          'caption'
-                      ]
-                  }
-              ],
-              attributes: [
-                  'id',
-                  'username',
-                  'location',
-                  'description',
-                  'profilePic'
-              ]
+                   { model: Newsfeed,
+                       include: [
+                            { model: Post,
+                               include: [
+                                   { model: Comment,
+                                       order: [
+                                           ['createdAt', 'ASC']
+                                       ]
+                                   }
+                               ],
+                               attributes: [
+                                   'id',
+                                   'body',
+                               ]
+                           },
+                            { model: Photo,
+                               include: [
+                                   { model: Comment,
+                                       order: ["createdAt", 'ASC']
+                                   }
+                               ],
+                               attributes: [
+                                   'id',
+                                   'photoUrl',
+                                   'caption'
+                               ]
+                           }
+                       ]
+                    }
+               ]
            })
-           .then(user => res.status(201).send(user))
-           .catch(error => res.status(400).send(error))
+            .then(user => res.status(201).send(user))
+            .catch(error => res.status(400).send(error))
        },
 
        getUsersDev (req, res) {
@@ -147,3 +156,32 @@ module.exports = {
               .catch(error => res.status(400).send(error))
        }
 }
+    //    { model: Post,
+    //        include: [{
+    //            model: Comment,
+    //            //attributes: ['id','body'],
+    //            order: [
+    //                ['createdAt ASC']
+    //            ]
+    //        }],
+    //        attributes: [
+    //            'id',
+    //            'body',
+    //        ],
+    //        order: [
+    //            ['createdAt', 'DESC']
+    //        ]
+    //    },
+    //   { model: Photo,
+    //       include: [{
+    //           model: Comment,
+    //           //attributes:['id','body'],
+    //           order: ["createdAt", 'ASC']
+    //       }],
+    //       attributes: [
+    //           'id',
+    //           'photoUrl',
+    //           'caption'
+    //       ],
+    //       order: ["createdAt", 'DESC']
+    //   }

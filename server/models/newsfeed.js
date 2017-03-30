@@ -1,16 +1,15 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Post = sequelize.define('Post', {
+  var Newsfeed = sequelize.define('Newsfeed', {
     userId: DataTypes.INTEGER,
-    body: DataTypes.TEXT
+    postId: DataTypes.INTEGER,
+    photoId: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
-        Post.hasMany(models.Comment, { foreignKey: 'postId' });
-        Post.belongsTo(models.Newsfeed, { foreignKey: 'postId' });
       }
     }
   });
-  return Post;
+  return Newsfeed;
 };

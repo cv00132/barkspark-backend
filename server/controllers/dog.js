@@ -9,7 +9,7 @@ module.exports = {
             breed: req.body.breed,
             description: req.body.description,
             picture: req.body.picture,
-            userId: req.user.id
+            userId: req.params.id
         })
         .then(dog => res.status(201).send(dog))
         .catch(error => res.status(400).send(error));

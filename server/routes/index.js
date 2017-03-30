@@ -4,6 +4,7 @@ const middleware = require("../middleware");
 // Require your controllers here
 const UserController = require('../controllers/user');
 const DogController = require('../controllers/dog');
+const PostController = require('../controllers/post');
 
 
 module.exports = (app) => {
@@ -27,9 +28,9 @@ module.exports = (app) => {
     app.put('/user/:id', /*middleware.authenticate,*/ UserController.updateUser);
 
 
-    app.post('/addDog', /*middleware.authenticate,*/ DogController.createDog);
+    app.post('/:id/addDog', /*middleware.authenticate,*/ DogController.createDog);
 
-    //app.post('/post', /*middleware.authenticate,*/ PostController.addPost);
+    app.post('/:id/post', /*middleware.authenticate,*/ PostController.addPost);
     //app.post('/post/:id/comment', /*middleware.authenticate,*/ CommentController.commentPost);
 
 

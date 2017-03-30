@@ -1,5 +1,6 @@
 const User = require('../models').User;
 const Dog = require('../models').Dog;
+const Post = require('../models').Post;
 const bcrypt = require('bcryptjs');
 const jwt = require('jwt-simple');
 const appSecrets = require('../config/secrets');
@@ -65,16 +66,19 @@ module.exports = {
                            'description'
                        ]
                    },
-            //        { model: Newsfeed,
-            //            include: [
-            //                 { model: Post,
-            //                    include: [
-            //                        { model: Comment,
-            //                            order: [
-            //                                ['createdAt', 'ASC']
-            //                            ]
-            //                        }
-            //                    ],
+                    // { model: Post,
+                    //     attributes: [
+                    //         'body',
+                    //         'photoUrl'
+                ],
+                     //}],
+                    //    include: [
+                    //        { model: Comment,
+                    //            order: [
+                    //                ['createdAt', 'ASC']
+                    //            ]
+                    //        }
+                    //    ],
             //                    attributes: [
             //                        'id',
             //                        'body',

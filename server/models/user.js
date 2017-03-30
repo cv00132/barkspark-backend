@@ -14,6 +14,7 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         // associations can be defined here
         User.hasMany(models.Dog, { foreignKey:'userId' });
+        User.hasMany(models.Post, { foreignKey: 'userId' });
       }
     }
   });

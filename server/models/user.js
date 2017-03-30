@@ -14,10 +14,6 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         // associations can be defined here
         User.hasMany(models.Dog, { foreignKey:'userId' });
-        User.hasMany(models.Post, { foreignKey:'userId' });
-        User.hasMany(models.Photo, { foreignKey: 'userId' });
-        User.hasMany(models.Comment, { foreignKey: 'userId' });
-        User.hasOne(models.Newsfeed, { foreignKey: 'userId' });
       }
     }
   });

@@ -1,9 +1,5 @@
 const User = require('../models').User;
 const Dog = require('../models').Dog;
-const Post = require('../models').Post;
-const Photo = require('../models').Photo;
-const Comment = require('../models').Comment;
-const Newsfeed = require('../models').Newsfeed;
 const bcrypt = require('bcryptjs');
 const jwt = require('jwt-simple');
 const appSecrets = require('../config/secrets');
@@ -58,13 +54,6 @@ module.exports = {
                where: {
                    id: req.params.id
                },
-                attributes: [
-                    'id',
-                    'username',
-                    'location',
-                    'description',
-                    'profilePic'
-                ],
                include: [
                     { model: Dog,
                        attributes: [
@@ -76,35 +65,42 @@ module.exports = {
                            'description'
                        ]
                    },
-                   { model: Newsfeed,
-                       include: [
-                            { model: Post,
-                               include: [
-                                   { model: Comment,
-                                       order: [
-                                           ['createdAt', 'ASC']
-                                       ]
-                                   }
-                               ],
-                               attributes: [
-                                   'id',
-                                   'body',
-                               ]
-                           },
-                            { model: Photo,
-                               include: [
-                                   { model: Comment,
-                                       order: ["createdAt", 'ASC']
-                                   }
-                               ],
-                               attributes: [
-                                   'id',
-                                   'photoUrl',
-                                   'caption'
-                               ]
-                           }
-                       ]
-                    }
+            //        { model: Newsfeed,
+            //            include: [
+            //                 { model: Post,
+            //                    include: [
+            //                        { model: Comment,
+            //                            order: [
+            //                                ['createdAt', 'ASC']
+            //                            ]
+            //                        }
+            //                    ],
+            //                    attributes: [
+            //                        'id',
+            //                        'body',
+            //                    ]
+            //                },
+            //                 { model: Photo,
+            //                    include: [
+            //                        { model: Comment,
+            //                            order: ["createdAt", 'ASC']
+            //                        }
+            //                    ],
+            //                    attributes: [
+            //                        'id',
+            //                        'photoUrl',
+            //                        'caption'
+            //                    ]
+            //                }
+            //            ]
+            //         }
+            //    ],
+               attributes: [
+                   'id',
+                   'username',
+                   'location',
+                   'description',
+                   'profilePic'
                ]
            })
             .then(user => res.status(201).send(user))
@@ -115,8 +111,6 @@ module.exports = {
            User.findAll({
                include: [
                   { model: Dog },
-                  { model: Post, include: Comment },
-                  { model: Photo, include: Comment }
               ]
            })
                .then(user => res.status(201).send(user))

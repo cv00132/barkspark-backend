@@ -4,10 +4,6 @@ const middleware = require("../middleware");
 // Require your controllers here
 const UserController = require('../controllers/user');
 const DogController = require('../controllers/dog');
-const PhotoController = require('../controllers/photo');
-const PostController = require('../controllers/post');
-const CommentController = require('../controllers/comment');
-const NewsfeedController = require('../controllers/newsfeed');
 
 
 module.exports = (app) => {
@@ -28,20 +24,13 @@ module.exports = (app) => {
 
     app.get('/users', UserController.getUsers);
     app.get('/user/:id', UserController.getInfo);
-    app.put('/user/:id', middleware.authenticate, UserController.updateUser);
+    app.put('/user/:id', /*middleware.authenticate,*/ UserController.updateUser);
 
 
-    app.post('/addDog', middleware.authenticate, DogController.createDog);
+    app.post('/addDog', /*middleware.authenticate,*/ DogController.createDog);
 
-    app.post('/photo', middleware.authenticate, PhotoController.uploadPhoto);
-
-    app.post('/post', middleware.authenticate, PostController.addPost);
-
-    app.post('/photo/:id/comment', middleware.authenticate, CommentController.commentPhoto);
-    app.post('/post/:id/comment', middleware.authenticate, CommentController.commentPost);
-
-    app.post('/user/newsfeed', /*middleware.authenticate,*/ NewsfeedController.createNewsfeed);
-
+    //app.post('/post', /*middleware.authenticate,*/ PostController.addPost);
+    //app.post('/post/:id/comment', /*middleware.authenticate,*/ CommentController.commentPost);
 
 
 };

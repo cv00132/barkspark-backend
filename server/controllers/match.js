@@ -4,7 +4,7 @@ module.exports = {
 
     requestMatch (req, res) {
         Match.create({
-            senderId: req.body.senderId,
+            senderId: req.user.id,
             recipientId: req.params.id,
             accepted: false
         })

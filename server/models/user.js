@@ -15,6 +15,8 @@ module.exports = function(sequelize, DataTypes) {
         // associations can be defined here
         User.hasMany(models.Dog, { foreignKey:'userId' });
         User.hasMany(models.Post, { foreignKey: 'userId' });
+        User.hasMany(models.Comment, { foreignKey: 'userId' });
+        User.hasMany(models.Match, { foreignKey: 'recipientId' });
       }
     }
   });

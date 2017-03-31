@@ -30,6 +30,7 @@ module.exports = (app) => {
 
 
     app.post('/:id/addDog', /*middleware.authenticate,*/ DogController.createDog);
+    app.put('/:id/editDog', /*middleware.authenticate,*/ DogController.updateDog);
 
     app.post('/:id/post', /*middleware.authenticate,*/ PostController.addPost);
     app.post('/post/:id/comment', /*middleware.authenticate,*/ CommentController.addComment);

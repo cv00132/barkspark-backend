@@ -13,6 +13,15 @@ module.exports = {
         })
         .then(dog => res.status(201).send(dog))
         .catch(error => res.status(400).send(error));
+    },
+
+    updateDog (req, res) {
+     Dog.update(req.body, {
+         where: { userId: req.params.id },
+         fields: ['name', 'age', 'breed', 'description', 'picture']
+     })
+     .then(user => res.status(201).send(user))
+     .catch(error => res.status(400).send(error))
     }
 
 

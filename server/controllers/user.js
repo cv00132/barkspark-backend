@@ -1,6 +1,8 @@
 const User = require('../models').User;
 const Dog = require('../models').Dog;
 const Post = require('../models').Post;
+const Comment = require('../models').Comment;
+const Match = require('../models').Match;
 const bcrypt = require('bcryptjs');
 const jwt = require('jwt-simple');
 const appSecrets = require('../config/secrets');
@@ -66,7 +68,8 @@ module.exports = {
                            'description'
                        ]
                    },
-                    { model: Post }
+                    { model: Post },
+                    { model: Match }
                 ],
                     //    include: [
                     //        { model: Comment,
@@ -102,7 +105,12 @@ module.exports = {
                        'name',
                        'picture'
                    ]
-               }],
+               },
+               { model: Post,
+                   include: { model: Comment },
+                   order: 'createdAt ASC'
+               }
+           ],
                attributes: [
                    'id',
                    'username',

@@ -13,8 +13,13 @@ module.exports = {
     },
 
     deletePost (req, res) {
-        Post.destroy()
-        .send(res.status(201))
+        Post.destroy({
+            where: {
+                userId : req.user.id,
+                id: req.params.id
+            }
+        })
+        .then(post => res.status(201).send(post))
         .catch(error => res.status(400).send(error));
     }
 

@@ -104,6 +104,7 @@ module.exports = {
                    ]
                }],
                attributes: [
+                   'id',
                    'username',
                    'profilePic',
                    'location'
@@ -114,45 +115,11 @@ module.exports = {
        },
 
        updateUser (req, res) {
-           User.findById({
-               where: {
-                   id: req.params.id
-               }})
-               .update([{
-                   description: req.body.description,
-                   location: req.body.location,
-                   profilePic: req.body.profilePic
-              }])
-              .then(user => res.status(201).send(user))
-              .catch(error => res.status(400).send(error))
+        User.update(req.body, {
+            where: { id: req.params.id },
+            fields: ['description', 'location', 'profilePic']
+        })
+        .then(user => res.status(201).send(user))
+        .catch(error => res.status(400).send(error))
        }
 }
-    //    { model: Post,
-    //        include: [{
-    //            model: Comment,
-    //            //attributes: ['id','body'],
-    //            order: [
-    //                ['createdAt ASC']
-    //            ]
-    //        }],
-    //        attributes: [
-    //            'id',
-    //            'body',
-    //        ],
-    //        order: [
-    //            ['createdAt', 'DESC']
-    //        ]
-    //    },
-    //   { model: Photo,
-    //       include: [{
-    //           model: Comment,
-    //           //attributes:['id','body'],
-    //           order: ["createdAt", 'ASC']
-    //       }],
-    //       attributes: [
-    //           'id',
-    //           'photoUrl',
-    //           'caption'
-    //       ],
-    //       order: ["createdAt", 'DESC']
-    //   }

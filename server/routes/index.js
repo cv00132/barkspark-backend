@@ -27,17 +27,17 @@ module.exports = (app) => {
 
     app.get('/users', UserController.getUsers);
     app.get('/user/:id', UserController.getInfo);
-    app.put('/user/:id', /*middleware.authenticate,*/ UserController.updateUser);
+    app.put('/user/:id', middleware.authenticate, UserController.updateUser);
 
 
-    app.post('/:id/addDog', /*middleware.authenticate,*/ DogController.createDog);
-    app.put('/:id/editDog', /*middleware.authenticate,*/ DogController.updateDog);
+    app.post('/:id/addDog', middleware.authenticate, DogController.createDog);
+    app.put('/:id/editDog', middleware.authenticate, DogController.updateDog);
 
-    app.post('/:id/post', /*middleware.authenticate,*/ PostController.addPost);
-    app.delete('/:id/post', /*middleware.authenticate,*/ PostController.deletePost)
+    app.post('/:id/post', middleware.authenticate, PostController.addPost);
+    app.delete('/:id/post', middleware.authenticate, PostController.deletePost)
 
-    app.post('/post/:id/comment', /*middleware.authenticate,*/ CommentController.addComment);
+    app.post('/post/:id/comment', middleware.authenticate, CommentController.addComment);
 
-    app.post('/user/:id/match', /*middleware.authenticate,*/ MatchController.requestMatch);
-    app.put('/user/:id/match', /*middleware.authenticate,*/ MatchController.acceptMatch);
+    app.post('/user/:id/match', middleware.authenticate, MatchController.requestMatch);
+    app.put('/user/:id/match', middleware.authenticate, MatchController.acceptMatch);
 };

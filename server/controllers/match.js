@@ -1,4 +1,5 @@
 const Match = require("../models").Match;
+const User = require("../models").User;
 
 module.exports = {
 
@@ -6,7 +7,13 @@ module.exports = {
         Match.create({
             senderId: req.user.id,
             recipientId: req.params.id,
-            accepted: false
+            accepted: false,
+            include: {
+                model: User,
+                attributes: [
+                    'username'
+                ]
+            }
         })
         .then(match => res.status(201).send(match))
         .catch(error => res.status(400).send(error));

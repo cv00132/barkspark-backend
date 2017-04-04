@@ -8,8 +8,8 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
-        Match.belongsTo(models.User, { foreignKey: 'senderId' });
-        Match.belongsTo(models.User, { foreignKey: 'recipientId' });
+        Match.belongsTo(models.User, { as: 'Recipient', foreignKey: 'recipientId' });
+        Match.belongsTo(models.User, { as: 'Sender', foreignKey: 'senderId' });
       }
     }
   });

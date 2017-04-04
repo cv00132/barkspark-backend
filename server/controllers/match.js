@@ -7,14 +7,7 @@ module.exports = {
         Match.create({
             senderId: req.user.id,
             recipientId: req.params.id,
-            accepted: false,
-            // include: {
-            //     model: User,
-            //     where: { id: req.user.id },
-            //     attributes: [
-            //         'username'
-            //     ]
-            // }
+            accepted: false
         })
         .then(match => res.status(201).send(match))
         .catch(error => res.status(400).send(error));

@@ -71,15 +71,25 @@ module.exports = {
                    },
                    { model: Tag },
                    { model: Post },
-                   { model: Match,
-                        // include: {
-                        //     where: { id: Match.senderId },
-                        //     model: User,
-                        //     attributes: [
-                        //         'username'
-                        //     ]
-                        // }
-                     }
+                   { model: Match, as: 'Received',
+                        include: [
+                            { model: User, as: 'Sender',
+                                attributes: [
+                                    'username',
+                                    'profilePic'
+                                ]
+                            }]
+                    },
+                    { model: Match, as: 'Sent',
+                        include: [
+                            { model: User, as: 'Recipient',
+                                attributes: [
+                                    'username',
+                                    'profilePic'
+                                ]
+                            }
+                        ]
+                    }
                 ],
                attributes: [
                    'id',
@@ -114,14 +124,7 @@ module.exports = {
                        'name',
                        'picture'
                    ]
-               },
-               { model: Post,
-                   include: { model: Comment },
-                   order: 'createdAt ASC'
-               },
-               { model: Match },
-               { model: Tag }
-           ],
+               }],
                attributes: [
                    'id',
                    'username',
@@ -134,11 +137,11 @@ module.exports = {
        },
 
        updateUser (req, res) {
-        User.update(req.body, {
-            where: { id: req.params.id },
-            fields: ['description', 'location', 'profilePic']
-        })
-        .then(user => res.status(201).send(user))
-        .catch(error => res.status(400).send(error))
+           User.update(req.body, {
+               where: { id: req.params.id },
+               fields: ['description', 'location', 'profilePic']
+           })
+           .then(user => res.status(201).send(user))
+           .catch(error => res.status(400).send(error))
        }
 }

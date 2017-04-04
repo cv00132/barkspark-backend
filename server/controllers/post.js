@@ -4,7 +4,7 @@ module.exports = {
 
     addPost (req, res) {
         Post.create({
-            userId: req.params.id,
+            userId: req.user.id,
             photoUrl: req.body.photoUrl,
             body: req.body.body
         })

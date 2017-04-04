@@ -9,6 +9,7 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         // associations can be defined here
         Match.belongsTo(models.User, { foreignKey: 'senderId' });
+        Match.belongsTo(models.User, { foreignKey: 'recipientId' });
       }
     }
   });

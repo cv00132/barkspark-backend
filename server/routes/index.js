@@ -7,6 +7,7 @@ const DogController = require('../controllers/dog');
 const PostController = require('../controllers/post');
 const CommentController = require('../controllers/comment');
 const MatchController = require('../controllers/match');
+const TagController = require('../controllers/tag');
 
 
 module.exports = (app) => {
@@ -40,4 +41,6 @@ module.exports = (app) => {
 
     app.post('/user/:id/match', middleware.authenticate, MatchController.requestMatch);
     app.put('/user/:id/match', middleware.authenticate, MatchController.acceptMatch);
+
+    app.post('/user/:id/tag', middleware.authenticate, TagController.addTag);
 };

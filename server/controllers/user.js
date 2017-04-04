@@ -69,7 +69,16 @@ module.exports = {
                        ]
                    },
                     { model: Post },
-                    { model: Match }
+                    { model: Match,
+                        where: { recipientId: req.params.id },
+                        // include: {
+                        //     where: { id: Match.senderId },
+                        //     model: User,
+                        //     attributes: [
+                        //         'username'
+                        //     ]
+                        // }
+                     }
                 ],
                     //    include: [
                     //        { model: Comment,

@@ -3,6 +3,7 @@ const Dog = require('../models').Dog;
 const Post = require('../models').Post;
 const Comment = require('../models').Comment;
 const Match = require('../models').Match;
+const Tag = require('../models').Tag;
 const bcrypt = require('bcryptjs');
 const jwt = require('jwt-simple');
 const appSecrets = require('../config/secrets');
@@ -70,7 +71,7 @@ module.exports = {
                    },
                     { model: Post },
                     { model: Match,
-                        where: { recipientId: req.params.id },
+                        where: { recipientId: req.params.id }
                         // include: {
                         //     where: { id: Match.senderId },
                         //     model: User,
@@ -78,7 +79,8 @@ module.exports = {
                         //         'username'
                         //     ]
                         // }
-                     }
+                    },
+                    { model: Tag }
                 ],
                     //    include: [
                     //        { model: Comment,

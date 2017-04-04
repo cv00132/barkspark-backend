@@ -42,5 +42,5 @@ module.exports = (app) => {
     app.post('/user/:id/match', middleware.authenticate, MatchController.requestMatch);
     app.put('/user/:id/match', middleware.authenticate, MatchController.acceptMatch);
 
-    app.post('/user/tag', middleware.authenticate, TagController.addTag);
+    app.post('/tag', middleware.authenticate, TagController.addTag);
 };

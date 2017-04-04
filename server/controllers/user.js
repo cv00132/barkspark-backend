@@ -69,9 +69,9 @@ module.exports = {
                            'description'
                        ]
                    },
-                    { model: Post },
-                    { model: Match,
-                        where: { recipientId: req.params.id }
+                   { model: Tag },
+                   { model: Post },
+                   { model: Match,
                         // include: {
                         //     where: { id: Match.senderId },
                         //     model: User,
@@ -79,13 +79,8 @@ module.exports = {
                         //         'username'
                         //     ]
                         // }
-                    },
-                    { model: Tag }
+                     }
                 ],
-                    //    include: [
-                    //        { model: Comment,
-                    //            order: [
-                    //                ['createdAt', 'ASC']
                attributes: [
                    'id',
                    'username',

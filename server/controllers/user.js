@@ -102,10 +102,13 @@ module.exports = {
            User.findAll({
                include: [
                   { model: Dog },
+                  { model: Post },
+                  { model: Match },
+                  { model: Tag }
               ]
            })
-               .then(user => res.status(201).send(user))
-               .catch(error => res.status(400).send(error))
+            .then(user => res.status(201).send(user))
+            .catch(error => res.status(400).send(error))
        },
 
        getUsers (req, res) {
@@ -120,7 +123,9 @@ module.exports = {
                { model: Post,
                    include: { model: Comment },
                    order: 'createdAt ASC'
-               }
+               },
+               { model: Match },
+               { model: Tag }
            ],
                attributes: [
                    'id',
@@ -129,8 +134,8 @@ module.exports = {
                    'location'
                ]
            })
-               .then(user => res.status(201).send(user))
-               .catch(error => res.status(400).send(error))
+            .then(user => res.status(201).send(user))
+            .catch(error => res.status(400).send(error))
        },
 
        updateUser (req, res) {

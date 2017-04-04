@@ -17,6 +17,7 @@ module.exports = function(sequelize, DataTypes) {
         User.hasMany(models.Post, { foreignKey: 'userId' });
         User.hasMany(models.Comment, { foreignKey: 'userId' });
         User.hasMany(models.Match, { foreignKey: 'recipientId' });
+        User.hasMany(models.Tag, { foreignKey: 'userId' });
       }
     }
   });

@@ -103,19 +103,6 @@ module.exports = {
             .catch(error => res.status(400).send(error))
        },
 
-       getUsersDev (req, res) {
-           User.findAll({
-               include: [
-                  { model: Dog },
-                  { model: Post },
-                  { model: Match },
-                  { model: Tag }
-              ]
-           })
-            .then(user => res.status(201).send(user))
-            .catch(error => res.status(400).send(error))
-       },
-
        getUsers (req, res) {
            User.findAll({
                include: [{

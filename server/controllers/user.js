@@ -129,6 +129,7 @@ module.exports = {
                attributes: [
                    'id',
                    'username',
+                   'DOB',
                    'profilePic',
                    'location'
                ]

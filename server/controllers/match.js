@@ -14,10 +14,23 @@ module.exports = {
     },
 
     acceptMatch (req, res) {
-        Match.update(req.body, {
-            where: { recipientId: req.params.id },
+        Match.update({
             fields: ['accepted'],
             accepted: true,
+            include: [
+                { model: User, as: 'Sender',
+                    attributes: [
+                        'username',
+                        'profilePic'
+                    ]
+                },
+                { model: User, as: 'Recipient',
+                    attributes: [
+                        'username',
+                        'profilePic'
+                    ]
+                }
+            ]
         })
         .then(match => res.status(201).send(match))
         .catch(error => res.status(400).send(error))

@@ -13,32 +13,34 @@ server.listen(port);
 // })
 
 //Sockets.io chat setup
-// io.listen(server);
+//io.listen(3000);
 
-io.on('connection', function (socket) {
+io.sockets.on('connection', function (socket) {
     console.log("somebody connected! hello world!");
-    //var socket = new io.Socket();
+    console.log(socket.id);
 
     socket.emit('chat', "Welcome to the chat!");
 
-    io.on('chat', (data) => {
-        console.log(`socket says: ${data.message}`)
-        socket.emit('chat', 'got your message!');
-    });
-
-    io.on('disconnect', () => {
+    socket.on('disconnect', () => {
         console.log('user disconnected');
     })
-})
+
+    socket.on('chat message', function(msg){
+            console.log('message: ' + msg);
+        })
+
+});
+
 
 //
 // io.sockets.on('connection', function(socket){
 //     console.log('a user connected');
 //     socket.on('some event', function(data){
 //         console.log(data);
-//     // socket.emit('event', { some: "data"});
-//     //     // socket.on('chat message', function(msg){
-//     //     //     console.log('message: ' + msg);
+//         socket.emit('event', { some: "data"});
+//     })
+//     socket.on('chat message', function(msg){
+//             console.log('message: ' + msg);
 //     })
 // })
 

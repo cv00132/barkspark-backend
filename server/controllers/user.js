@@ -51,7 +51,7 @@ module.exports = {
             }
           })
            .catch(error => res.status(400).send(error));
-       },
+    },
 
        getInfo (req, res) {
            User.findOne({
@@ -75,6 +75,7 @@ module.exports = {
                         include: [
                             { model: User, as: 'Sender',
                                 attributes: [
+                                    'id',
                                     'username',
                                     'profilePic'
                                 ]
@@ -84,6 +85,7 @@ module.exports = {
                         include: [
                             { model: User, as: 'Recipient',
                                 attributes: [
+                                    'id',
                                     'username',
                                     'profilePic'
                                 ]

@@ -15,17 +15,20 @@ module.exports = {
 
     acceptMatch (req, res) {
         Match.update({
-            fields: ['accepted'],
-            accepted: true,
+            accepted: req.body.accepted,
+            //senderId: Sender.id,
+            recipientId: req.user.id,
             include: [
                 { model: User, as: 'Sender',
                     attributes: [
+                        'id',
                         'username',
                         'profilePic'
                     ]
                 },
                 { model: User, as: 'Recipient',
                     attributes: [
+                        'id',
                         'username',
                         'profilePic'
                     ]

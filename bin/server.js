@@ -15,21 +15,49 @@ server.listen(port);
 //Sockets.io chat setup
 //io.listen(3000);
 
-io.sockets.on('connection', function (socket) {
-    console.log("somebody connected! hello world!");
-    console.log(socket.id);
+var home = io.of('/');
 
-    socket.emit('chat', "Welcome to the chat!");
+console.log(home);
 
-    socket.on('disconnect', () => {
-        console.log('user disconnected');
-    })
+home.on('connection', function(socket){
+  console.log('someone connected');
 
-    socket.on('chat message', function(msg){
-            console.log('message: ' + msg);
-        })
-
+  socket.on('disconnecting', function(socket){
+      console.log('someone left');
+  });
 });
+
+home.on("connection", function (socket) {
+    var tweet = {user: "nodesource", text: "Hello, world!"};
+
+    // to make things interesting, have it send every second
+    socket.emit("tweet", tweet);
+
+    socket.on("disconnect", function () {
+        socket.emit('bye',"Goodbye!")
+    });
+});
+
+
+
+
+
+
+// io.sockets.on('connection', function (socket) {
+//     console.log("somebody connected! hello world!");
+//     console.log(socket.id);
+//
+//     socket.emit('chat', "Welcome to the chat!");
+//
+//     socket.on('disconnect', () => {
+//         console.log('user disconnected');
+//     })
+//
+//     socket.on('chat message', function(msg){
+//             console.log('message: ' + msg);
+//         })
+//
+// });
 
 
 //

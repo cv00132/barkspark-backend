@@ -8,6 +8,7 @@ const PostController = require('../controllers/post');
 const CommentController = require('../controllers/comment');
 const MatchController = require('../controllers/match');
 const TagController = require('../controllers/tag');
+const MessageController = require('../controllers/message');
 
 
 module.exports = (app) => {
@@ -42,4 +43,6 @@ module.exports = (app) => {
     app.delete('/user/:id/match', middleware.authenticate, MatchController.deleteMatch);
 
     app.post('/tag', middleware.authenticate, TagController.addTag);
+
+    app.post('/chat', middleware.authenticate, MessageController.sendMessage);
 };

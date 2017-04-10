@@ -4,6 +4,8 @@ const Post = require('../models').Post;
 const Comment = require('../models').Comment;
 const Match = require('../models').Match;
 const Tag = require('../models').Tag;
+const Chat = require('../models').Chat;
+const Message = require('../models').Message;
 const bcrypt = require('bcryptjs');
 const jwt = require('jwt-simple');
 const appSecrets = require('../config/secrets');
@@ -91,7 +93,17 @@ module.exports = {
                             ]
                         }
                     ]
-                }
+                },
+                // { model: Chat, as: 'Sender',
+                //     include: [{
+                //         model: Message, as: 'Outbox',
+                //     }]
+                // },
+                // { model: Chat, as: 'Receiver',
+                //     include: [{
+                //         model: Message, as: 'Inbox',
+                //     }]
+                // }
             ],
            attributes: [
                'id',

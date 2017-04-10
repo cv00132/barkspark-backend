@@ -3,104 +3,40 @@ const http = require('http');
 const app = require('../app'); // The express app we just created
 const port = parseInt(process.env.PORT, 10) || 8000;
 // app.set('port', port);
-const server = http.createServer(app);
-const io = require('socket.io')(server);
+const server = http.createServer(app).listen(port);
+const io = require('socket.io');
 
-server.listen(port);
+// io.use(function(socket, next){
+//   if (socket.request.headers.cookie) return next();
+//   next(new Error('Authentication error'));
+// });
 
-// server.on('upgrade', function () {
-//     console.log('attempting to upgrade...')
-// })
+var chat = io.listen(server).of('/');
 
-//Sockets.io chat setup
-//io.listen(3000);
-
-var chat = io.of('/');
 
 //console.log(chat);
 
-this.users = [];
+//var users = [];
 
-chat.on('connection', function(socket){
-  console.log('someone connected');
+chat.on('connection', function(client){
+    console.log('someone connected');
+    console.log(client.id);
 
-    socket.emit('message', (data) => {
-      console.log(data);
+    chat.clients(function(error, clients){
+      if (error) throw error;
+      console.log(clients);
+    });
+
+    client.on('message', (data) => {
+        console.log('got some data', data);
+        client.to(client.id).emit('message', `got your message: ` + data);
     })
 
-    socket.on('disconnecting', function(socket){
-      console.log('someone left');
+    client.on('disconnecting', function(socket){
+        console.log(socket);
+        console.log(`${client.id} left`);
     });
 });
-
-chat.on("connection", function (socket) {
-    var tweet = {user: "nodesource", text: "Hello, world!"};
-
-    socket.emit("tweet", tweet);
-
-    socket.on("disconnect", function () {
-        socket.emit('bye',"Goodbye!")
-    });
-});
-
-chat.on('username', (userName) => {
-
-  	this.users.push({
-  		id : socket.id,
-  		userName : userName
-  	});
-
-  	let len = this.users.length;
-  	len--;
-
-  	this.socket.emit('userList',this.users,this.users[len].id); 
-});
-
-// chat.on('subscribe', function(room) {
-//     console.log('joining room', room);
-//     socket.join(room);
-// });
-//
-// chat.on('send message', function(data) {
-//     console.log('sending room post', data.room);
-//     chat.sockets.in(data.room).emit('conversation private post', {
-//         message: data.message
-//     });
-// });
-
-
-
-
-
-
-// io.sockets.on('connection', function (socket) {
-//     console.log("somebody connected! hello world!");
-//     console.log(socket.id);
-//
-//     socket.emit('chat', "Welcome to the chat!");
-//
-//     socket.on('disconnect', () => {
-//         console.log('user disconnected');
-//     })
-//
-//     socket.on('chat message', function(msg){
-//             console.log('message: ' + msg);
-//         })
-//
-// });
-
-
-//
-// io.sockets.on('connection', function(socket){
-//     console.log('a user connected');
-//     socket.on('some event', function(data){
-//         console.log(data);
-//         socket.emit('event', { some: "data"});
-//     })
-//     socket.on('chat message', function(msg){
-//             console.log('message: ' + msg);
-//     })
-// })
 
 // Sending a private message to User using socketId
 //  socket.to(<socketid>).emit('hey', 'I just met you');

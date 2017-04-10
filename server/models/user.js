@@ -17,8 +17,10 @@ module.exports = function(sequelize, DataTypes) {
         User.hasMany(models.Post, { foreignKey: 'userId' });
         User.hasMany(models.Comment, { foreignKey: 'userId' });
         User.hasMany(models.Match, { as: 'Received', foreignKey: 'recipientId' });
-        User.hasMany(models.Match, { as: 'Sent', foreignKey: 'senderId', });
+        User.hasMany(models.Match, { as: 'Sent', foreignKey: 'senderId' });
         User.hasMany(models.Tag, { foreignKey: 'userId' });
+        User.hasMany(models.Chat, { as: 'Receiver', foreignKey: 'receiverId' });
+        User.hasMany(models.Chat, { as: 'Sender', foreignKey: 'senderId' });
         User.hasMany(models.Message, { foreignKey: 'userId' });
       }
     }

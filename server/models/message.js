@@ -9,6 +9,8 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
+        Message.belongsTo(models.Chat, { as: 'Inbox', foreignKey: 'chatId'});
+        Message.belongsTo(models.Chat, { as: 'Outbox', foreignKey: 'chatId'});
       }
     }
   });

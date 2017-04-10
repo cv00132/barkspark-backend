@@ -51,9 +51,9 @@ module.exports = {
             }
           })
            .catch(error => res.status(400).send(error));
-    },
+       },
 
-   getInfo (req, res) {
+    getInfo (req, res) {
        User.findOne({
            where: {
                id: req.params.id
@@ -117,6 +117,7 @@ module.exports = {
            attributes: [
                'id',
                'username',
+               'DOB',
                'profilePic',
                'location'
            ]

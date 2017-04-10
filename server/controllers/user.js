@@ -51,7 +51,7 @@ module.exports = {
             }
           })
            .catch(error => res.status(400).send(error));
-       },
+    },
 
     getInfo (req, res) {
        User.findOne({

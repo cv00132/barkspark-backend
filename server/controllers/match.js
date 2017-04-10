@@ -41,8 +41,8 @@ module.exports = {
     deleteMatch (req, res) {
         Match.destroy({
             where: {
-                // recipientId : req.user.id,
-                id: req.params.id
+                recipientId : req.params.id,
+                //id: req.params.id
             }
         })
         .then(match => res.sendStatus(201).send(match))

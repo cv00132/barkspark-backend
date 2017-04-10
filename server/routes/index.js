@@ -39,7 +39,7 @@ module.exports = (app) => {
 
     app.post('/user/:id/match', middleware.authenticate, MatchController.requestMatch);
     //app.put('/user/:id/match', middleware.authenticate, MatchController.acceptMatch);
-    app.delete('/user/match/:id', middleware.authenticate, MatchController.deleteMatch);
+    app.delete('/user/:id/match', middleware.authenticate, MatchController.deleteMatch);
 
     app.post('/tag', middleware.authenticate, TagController.addTag);
 };

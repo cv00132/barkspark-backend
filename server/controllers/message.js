@@ -4,6 +4,7 @@ module.exports = {
 
     addMessage (req, res) {
         Message.create({
+            
 
         })
         .then(message => res.status(201).send(message))

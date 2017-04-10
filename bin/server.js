@@ -19,6 +19,8 @@ var chat = io.of('/');
 
 //console.log(chat);
 
+this.users = [];
+
 chat.on('connection', function(socket){
   console.log('someone connected');
 
@@ -39,6 +41,19 @@ chat.on("connection", function (socket) {
     socket.on("disconnect", function () {
         socket.emit('bye',"Goodbye!")
     });
+});
+
+chat.on('username', (userName) => {
+
+  	this.users.push({
+  		id : socket.id,
+  		userName : userName
+  	});
+
+  	let len = this.users.length;
+  	len--;
+
+  	this.socket.emit('userList',this.users,this.users[len].id); 
 });
 
 // chat.on('subscribe', function(room) {

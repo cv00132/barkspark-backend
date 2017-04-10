@@ -15,21 +15,79 @@ server.listen(port);
 //Sockets.io chat setup
 //io.listen(3000);
 
-io.sockets.on('connection', function (socket) {
-    console.log("somebody connected! hello world!");
-    console.log(socket.id);
+var chat = io.of('/');
 
-    socket.emit('chat', "Welcome to the chat!");
+//console.log(chat);
 
-    socket.on('disconnect', () => {
-        console.log('user disconnected');
+this.users = [];
+
+chat.on('connection', function(socket){
+  console.log('someone connected');
+
+    socket.emit('message', (data) => {
+      console.log(data);
     })
 
-    socket.on('chat message', function(msg){
-            console.log('message: ' + msg);
-        })
-
+    socket.on('disconnecting', function(socket){
+      console.log('someone left');
+    });
 });
+
+chat.on("connection", function (socket) {
+    var tweet = {user: "nodesource", text: "Hello, world!"};
+
+    socket.emit("tweet", tweet);
+
+    socket.on("disconnect", function () {
+        socket.emit('bye',"Goodbye!")
+    });
+});
+
+chat.on('username', (userName) => {
+
+  	this.users.push({
+  		id : socket.id,
+  		userName : userName
+  	});
+
+  	let len = this.users.length;
+  	len--;
+
+  	this.socket.emit('userList',this.users,this.users[len].id); 
+});
+
+// chat.on('subscribe', function(room) {
+//     console.log('joining room', room);
+//     socket.join(room);
+// });
+//
+// chat.on('send message', function(data) {
+//     console.log('sending room post', data.room);
+//     chat.sockets.in(data.room).emit('conversation private post', {
+//         message: data.message
+//     });
+// });
+
+
+
+
+
+
+// io.sockets.on('connection', function (socket) {
+//     console.log("somebody connected! hello world!");
+//     console.log(socket.id);
+//
+//     socket.emit('chat', "Welcome to the chat!");
+//
+//     socket.on('disconnect', () => {
+//         console.log('user disconnected');
+//     })
+//
+//     socket.on('chat message', function(msg){
+//             console.log('message: ' + msg);
+//         })
+//
+// });
 
 
 //

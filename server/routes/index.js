@@ -30,6 +30,7 @@ module.exports = (app) => {
 
     app.post('/:id/addDog', middleware.authenticate, DogController.createDog);
     app.put('/:id/editDog', middleware.authenticate, DogController.updateDog);
+    app.delete('/:id/removeDog', middleware.authenticate, DogController.removeDog);
 
     app.post('/:id/post', middleware.authenticate, PostController.addPost);
     app.delete('/:id/post', middleware.authenticate, PostController.deletePost)
@@ -37,7 +38,8 @@ module.exports = (app) => {
     app.post('/post/:id/comment', middleware.authenticate, CommentController.addComment);
 
     app.post('/user/:id/match', middleware.authenticate, MatchController.requestMatch);
-    app.put('/user/:id/match', middleware.authenticate, MatchController.acceptMatch);
+    //app.put('/user/:id/match', middleware.authenticate, MatchController.acceptMatch);
+    app.delete('/user/match/:id', middleware.authenticate, MatchController.deleteMatch);
 
     app.post('/tag', middleware.authenticate, TagController.addTag);
 };

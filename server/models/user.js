@@ -19,6 +19,7 @@ module.exports = function(sequelize, DataTypes) {
         User.hasMany(models.Match, { as: 'Received', foreignKey: 'recipientId' });
         User.hasMany(models.Match, { as: 'Sent', foreignKey: 'senderId', });
         User.hasMany(models.Tag, { foreignKey: 'userId' });
+        User.hasMany(models.Message, { foreignKey: 'userId' });
       }
     }
   });

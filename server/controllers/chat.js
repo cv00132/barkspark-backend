@@ -18,8 +18,7 @@ module.exports = (io) => {
                 recipientId: data.recipientId,
                 chatId: data.chatId
             })
-            .then(message => client.emit('message', `got your message: ` + JSON.stringify(data)))
-            .catch(error => status(400).send(error));
+            .then(message => client.emit('message', `got your message: ` + JSON.stringify(data)));
             // Message.create with chatId, senderId, recipientId, content
             // in the Then, emit back the finished message
         });

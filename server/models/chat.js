@@ -7,7 +7,8 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
-        Chat.hasMany(models.Message, { foreignKey: 'chatId' });
+        Chat.hasMany(models.Message, { as: 'Incoming', foreignKey: 'chatId' });
+        Chat.hasMany(models.Message, { as: 'Outgoing', foreignKey: 'chatId' });
       }
     }
   });

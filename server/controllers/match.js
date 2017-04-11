@@ -15,26 +15,26 @@ module.exports = {
     },
 
     acceptMatch (req, res) {
-        Match.update(req.body, {
-            where: { id: Match.id },
-            fields: ['accepted'],
+        // Model.update(Object, options) // object is key value pairs
+        Match.update({
             accepted: true
+        }, {
+            where: { id: req.params.id }
         })
         .then(match => {
             Chat.create({
-                receiverId: match.recipientId,
-                senderId: match.senderId
+                receiverId: Match.recipientId,
+                senderId: Match.senderId
             })
+            .then(chat => res.status(201).send(chat))
         })
-        .then(match => res.status(201).send(match))
         .catch(error => res.status(400).send(error))
     },
 
     deleteMatch (req, res) {
         Match.destroy({
             where: {
-                recipientId : req.params.id,
-                //id: req.params.id
+                id: req.params.id
             }
         })
         .then(match => res.sendStatus(201).send(match))

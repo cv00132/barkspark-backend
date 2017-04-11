@@ -8,6 +8,7 @@ const PostController = require('../controllers/post');
 const CommentController = require('../controllers/comment');
 const MatchController = require('../controllers/match');
 const TagController = require('../controllers/tag');
+const ChatController = require('../controllers/chat');
 const MessageController = require('../controllers/message');
 
 
@@ -38,11 +39,18 @@ module.exports = (app) => {
 
     app.post('/post/:id/comment', middleware.authenticate, CommentController.addComment);
 
+//    ng-repeat="match in vm.user.Recieved"
+//    ng-click="vm.acceptMatch(match.id)"
+    app.put('/matches/:id/accept', middleware.authenticate, MatchController.acceptMatch);
+    // PUT /user/24/match, Look up a match with senderId: 24, accept it
     app.post('/user/:id/match', middleware.authenticate, MatchController.requestMatch);
-    app.put('/user/:id/match', middleware.authenticate, MatchController.acceptMatch);
-    app.delete('/user/:id/match', middleware.authenticate, MatchController.deleteMatch);
+    app.delete('matches/:id/delete', middleware.authenticate, MatchController.deleteMatch);
 
     app.post('/tag', middleware.authenticate, TagController.addTag);
 
-    app.post('/chat', middleware.authenticate, MessageController.sendMessage);
+//    app.post('/chats', middleware.authenticate, MessageController.initChat);
+    app.get('/chats', middleware.authenticate, MessageController.getChats);
+    app.get('/chats/:id/messages', middleware.authenticate, MessageController.listMessages);
+    app.post('/chats/:chatId/user/:id', middleware.authenticate, MessageController.sendMessage);
+    app.delete('/chats/messages/:id', middleware.authenticate, MessageController.deleteMessage);
 };

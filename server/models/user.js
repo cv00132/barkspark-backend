@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
         User.hasMany(models.Tag, { foreignKey: 'userId' });
         User.hasMany(models.Chat, { as: 'Receiver', foreignKey: 'receiverId' });
         User.hasMany(models.Chat, { as: 'Sender', foreignKey: 'senderId' });
-        User.hasMany(models.Message, { foreignKey: 'userId' });
+        User.hasMany(models.Message, { foreignKey: 'senderId' });
       }
     }
   });

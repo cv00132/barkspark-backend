@@ -1,18 +1,52 @@
 const Message = require("../models").Message;
+const Chat = require("../models").Chat;
 
 module.exports = {
 
-    // route -> /user/:id/messages, returns all messages between currentUser and :id
-    // listMessages (req, res) {
-    //     // should be authenticated so have req.user
-    //     // Messages. WHERE chatId LIKE `req.user.id:req.params.id`
-    //
+    //route -> /user/:id/messages, returns all messages between currentUser and :id
+    // initChat (req, res) {
+    //     Chat.create({
+    //         senderId: req.user.id,
+    //         receiverId:
+    //     })
+    //     .then(chat => res.status(201).send(chat))
+    //     .catch(error => res.status(400).send(error));
     // },
+
+    getChats (req, res) {
+        Chat.findAll({
+                $or: [
+                    { senderId: req.user.id },
+                    { receiverId: req.user.id }
+                ],
+            include: [
+                { model: Message, as: 'Outgoing' },
+                { model: Message, as: 'Incoming' }
+            ]
+        })
+        .then(chat => res.status(201).send(chat))
+        .catch(error => res.status(400).send(error));
+        //WHERE chatId LIKE `req.user.id:req.params.id`
+    },
+
+    listMessages (req, res) {
+        // should be authenticated so have req.user
+        Message.findAll({
+            where: {
+                chatId: req.params.id
+            }
+        })
+        .then(message => res.status(201).send(message))
+        .catch(error => res.status(400).send(error));
+        //WHERE chatId LIKE `req.user.id:req.params.id`
+    },
 
     sendMessage (req, res) {
         Message.create({
             msg: req.body.msg,
-            senderId: req.user.id
+            senderId: req.user.id,
+            recipientId: req.params.id,
+            chatId: req.params.chatId
         })
         .then(message => res.status(201).send(message))
         .catch(error => res.status(400).send(error));
@@ -21,7 +55,7 @@ module.exports = {
     deleteMessage (req, res) {
         Message.destroy({
             where: {
-
+                id: req.params.id
             }
         })
         .then(message => res.sendStatus(201).send(message))

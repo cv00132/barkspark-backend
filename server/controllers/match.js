@@ -26,6 +26,8 @@ module.exports = {
              returning: true
         })
         .spread((count, match) => {
+            console.log(count);
+            console.log(match);
             // if (count === 1) {
             //     // create a chat and send it
             // } else {

@@ -19,12 +19,22 @@ module.exports = {
         Match.update({
             accepted: true
         }, {
-            where: { id: req.params.id }
+            where: {
+                id: req.params.id,
+                //recipientId: req.user.id
+             },
+             returning: true
         })
-        .then(match => {
+        .spread((count, match) => {
+            // if (count === 1) {
+            //     // create a chat and send it
+            // } else {
+            // res.status(403).send({ message: '})
+            //     // something has gone wrong or not your user or something
+            // }
             Chat.create({
-                receiverId: Match.recipientId,
-                senderId: Match.senderId
+                receiverId: match.recipientId,
+                senderId: match.senderId
             })
             .then(chat => res.status(201).send(chat))
         })

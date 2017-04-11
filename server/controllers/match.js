@@ -1,5 +1,6 @@
 const Match = require("../models").Match;
 const User = require("../models").User;
+const Chat = require("../models").Chat;
 
 module.exports = {
 
@@ -7,42 +8,43 @@ module.exports = {
         Match.create({
             senderId: req.user.id,
             recipientId: req.params.id,
-            accepted: true
+            accepted: false
         })
         .then(match => res.status(201).send(match))
         .catch(error => res.status(400).send(error));
     },
 
-    // acceptMatch (req, res) {
-    //     Match.update({
-    //         //senderId: Sender.id,
-    //         recipientId: req.user.id,
-    //         include: [
-    //             { model: User, as: 'Sender',
-    //                 attributes: [
-    //                     'id',
-    //                     'username',
-    //                     'profilePic'
-    //                 ]
-    //             },
-    //             { model: User, as: 'Recipient',
-    //                 attributes: [
-    //                     'id',
-    //                     'username',
-    //                     'profilePic'
-    //                 ]
-    //             }
-    //         ]
-    //     })
-    //     .then(match => res.status(201).send(match))
-    //     .catch(error => res.status(400).send(error))
-    // }
+    acceptMatch (req, res) {
+        // Model.update(Object, options) // object is key value pairs
+        Match.update({
+            accepted: true
+        }, {
+            where: {
+                id: req.params.id,
+                //recipientId: req.user.id
+             },
+             returning: true
+        })
+        .spread((count, match) => {
+            // if (count === 1) {
+            //     // create a chat and send it
+            // } else {
+            // res.status(403).send({ message: '})
+            //     // something has gone wrong or not your user or something
+            // }
+            Chat.create({
+                receiverId: match.recipientId,
+                senderId: match.senderId
+            })
+            .then(chat => res.status(201).send(chat))
+        })
+        .catch(error => res.status(400).send(error))
+    },
 
     deleteMatch (req, res) {
         Match.destroy({
             where: {
-                recipientId : req.params.id,
-                //id: req.params.id
+                id: req.params.id
             }
         })
         .then(match => res.sendStatus(201).send(match))

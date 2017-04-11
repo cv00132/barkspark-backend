@@ -1,24 +1,24 @@
 const Chat = require("../models").Chat;
+const Message = require("../models").Message;
 
-module.exports = {
+module.exports = (io) => {
+    io.on('connection', function(client){
+        console.log('someone connected');
+        console.log(client.id);
 
-    addChat (req, res) {
-        Chat.create({
+        io.clients(function(error, clients){
+          if (error) throw error;
+          console.log(clients);
+        });
 
+        client.on('message', (data) => {
+            //console.log('got some data', data);
+            client.emit('message', `got your message: ` + JSON.stringify(data));
         })
-        .then(chat => res.status(201).send(chat))
-        .catch(error => res.status(400).send(error));
-    },
 
-    deleteChat (req, res) {
-        Chat.destroy({
-            where: {
-
-            }
-        })
-        .then(chat => res.sendStatus(201).send(chat))
-        .catch(error => res.status(400).send(error));
-    }
-
-
+        client.on('disconnecting', function(socket){
+            console.log(socket);
+            console.log(`${client.id} left`);
+        });
+    });
 }

@@ -1,5 +1,6 @@
 const Message = require("../models").Message;
 const Chat = require("../models").Chat;
+const User = require("../models").User;
 
 module.exports = {
 
@@ -24,7 +25,7 @@ module.exports = {
                 // Maybe include the _Incoming_ messages so we can see the last message?
                 // { model: Message, as: 'Outgoing' },
                 { model: Message, as: 'Incoming' },
-                { model: User, as: 'Receiver'}
+                //{ model: User, as: 'Receiver'}
             ]
         })
         .then(chat => res.status(201).send(chat))

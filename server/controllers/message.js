@@ -2,6 +2,13 @@ const Message = require("../models").Message;
 
 module.exports = {
 
+    // route -> /user/:id/messages, returns all messages between currentUser and :id
+    // listMessages (req, res) {
+    //     // should be authenticated so have req.user
+    //     // Messages. WHERE chatId LIKE `req.user.id:req.params.id`
+    //
+    // },
+
     sendMessage (req, res) {
         Message.create({
             msg: req.body.msg,

@@ -32,9 +32,6 @@ module.exports = {
             // res.status(403).send({ message: '})
             //     // something has gone wrong or not your user or something
             // }
-            console.log("match is ", match[0]);
-            console.log(match[0].senderId);
-            console.log(match[0].get('senderId'));
             Chat.create({
                 receiverId: match[0].recipientId,
                 senderId: match[0].senderId

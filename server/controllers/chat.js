@@ -12,8 +12,18 @@ module.exports = (io) => {
         });
 
         client.on('message', (data) => {
-            //console.log('got some data', data);
-            client.emit('message', `got your message: ` + JSON.stringify(data));
+            Message.create({
+                msg: data.msg,
+                senderId: data.senderId,
+                recipientId: data.recipientId,
+                chatId: data.chatId
+            })
+            .then(message =>
+                client.emit('message', JSON.stringify(data.msg)))
+            .catch(error => res.status(400).send(error));
+            // Message.create with chatId, senderId, recipientId, content
+
+            // in the Then, emit back the finished message
         })
 
         client.on('disconnecting', function(socket){

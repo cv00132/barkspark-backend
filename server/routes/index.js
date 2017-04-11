@@ -51,6 +51,6 @@ module.exports = (app) => {
 //    app.post('/chats', middleware.authenticate, MessageController.initChat);
     app.get('/chats', middleware.authenticate, MessageController.getChats);
     app.get('/chats/:id/messages', middleware.authenticate, MessageController.listMessages);
-    app.post('/chats/:chatId/user/:id', middleware.authenticate, MessageController.sendMessage);
+    //app.post('/chats/:chatId/user/:id', middleware.authenticate, MessageController.sendMessage);
     app.delete('/chats/messages/:id', middleware.authenticate, MessageController.deleteMessage);
 };

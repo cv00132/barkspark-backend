@@ -20,8 +20,11 @@ module.exports = {
                     { receiverId: req.user.id }
                 ],
             include: [
-                { model: Message, as: 'Outgoing' },
-                { model: Message, as: 'Incoming' }
+                // Probably include users here to see the users.
+                // Maybe include the _Incoming_ messages so we can see the last message?
+                // { model: Message, as: 'Outgoing' },
+                { model: Message, as: 'Incoming' },
+                { model: User, as: 'Receiver'}
             ]
         })
         .then(chat => res.status(201).send(chat))
@@ -40,17 +43,17 @@ module.exports = {
         .catch(error => res.status(400).send(error));
         //WHERE chatId LIKE `req.user.id:req.params.id`
     },
-
-    sendMessage (req, res) {
-        Message.create({
-            msg: req.body.msg,
-            senderId: req.user.id,
-            recipientId: req.params.id,
-            chatId: req.params.chatId
-        })
-        .then(message => res.status(201).send(message))
-        .catch(error => res.status(400).send(error));
-    },
+    //
+    // sendMessage (req, res) {
+    //     Message.create({
+    //         msg: req.body.msg,
+    //         senderId: req.user.id,
+    //         recipientId: req.params.id,
+    //         chatId: req.params.chatId
+    //     })
+    //     .then(message => res.status(201).send(message))
+    //     .catch(error => res.status(400).send(error));
+    // },
 
     deleteMessage (req, res) {
         Message.destroy({

@@ -15,10 +15,10 @@ module.exports = (io) => {
             Message.create({
                 msg: data.msg,
                 senderId: data.senderId,
-                recipientId: data.recipientId,
+                recipientId: data.receiverId,
                 chatId: data.chatId
             })
-            .then(message => client.emit('message', message));
+            .then(message => client.emit('message', JSON.stringify(data)));
             // Message.create with chatId, senderId, recipientId, content
             // in the Then, emit back the finished message
         });

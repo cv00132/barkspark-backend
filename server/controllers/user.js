@@ -93,12 +93,6 @@ module.exports = {
                             ]
                         }
                     ]
-                },
-                { model: Chat, as: 'Sender',
-                    include: { model: Message, as: 'Outgoing' }
-                },
-                { model: Chat, as: 'Receiver',
-                    include: { model: Message, as: 'Incoming' }
                 }
             ],
            attributes: [

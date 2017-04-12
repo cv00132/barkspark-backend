@@ -40,13 +40,14 @@ module.exports = {
 
     listMessages (req, res) {
         // should be authenticated so have req.user
-        Message.findAll({
-            where: {
-                chatId: req.params.id
-            }
+        Chat.findById(req.params.id, {
+            include: [{ model: Message }]
         })
-        .then(message => res.status(201).send(message))
-        .catch(error => res.status(400).send(error));
+        .then(chat => res.status(201).send(chat))
+        .catch(error => {
+            console.log(error);
+            res.status(400).send(error);
+        })
         //WHERE chatId LIKE `req.user.id:req.params.id`
     },
     //

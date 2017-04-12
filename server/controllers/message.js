@@ -20,8 +20,8 @@ module.exports = {
                 $or: [
                     { senderId: req.user.id },
                     { receiverId: req.user.id }
-                ],
-            }
+                ]
+            },
             include: [
                 // Probably include users here to see the users.
                 // Maybe include the _Incoming_ messages so we can see the last message?

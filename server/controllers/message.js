@@ -26,8 +26,8 @@ module.exports = {
                 // Probably include users here to see the users.
                 // Maybe include the _Incoming_ messages so we can see the last message?
                 // { model: Message, as: 'Outgoing' },
-                { model: Message, as: 'Incoming' },
-                { model: User }
+                { model: Message, as: 'Incoming' }
+                // { model: User }
             ]
         })
         .then(chat => res.status(201).send(chat))

@@ -21,7 +21,7 @@ module.exports = (io) => {
             })
             .then(message => {
                 console.log(message);
-                client.emit("message", JSON.stringify(message));
+                io.emit("message", JSON.stringify(message));
             })
             // Message.create with chatId, senderId, recipientId, content
             // in the Then, emit back the finished message

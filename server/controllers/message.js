@@ -16,10 +16,12 @@ module.exports = {
 
     getChats (req, res) {
         Chat.findAll({
+            where: {
                 $or: [
                     { senderId: req.user.id },
                     { receiverId: req.user.id }
                 ],
+            }
             include: [
                 // Probably include users here to see the users.
                 // Maybe include the _Incoming_ messages so we can see the last message?
@@ -29,7 +31,10 @@ module.exports = {
             ]
         })
         .then(chat => res.status(201).send(chat))
-        .catch(error => res.status(400).send(error));
+        .catch(error => {
+            console.log(error);
+            res.status(400).send(JSON.stringify(error));
+        });
         //WHERE chatId LIKE `req.user.id:req.params.id`
     },
 

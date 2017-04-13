@@ -44,7 +44,7 @@ module.exports = (app) => {
     app.put('/matches/:id/accept', middleware.authenticate, MatchController.acceptMatch);
     // PUT /user/24/match, Look up a match with senderId: 24, accept it
     app.post('/user/:id/match', middleware.authenticate, MatchController.requestMatch);
-    app.delete('matches/:id/delete', middleware.authenticate, MatchController.deleteMatch);
+    app.delete('/matches/:id/delete', middleware.authenticate, MatchController.deleteMatch);
 
     app.post('/tag', middleware.authenticate, TagController.addTag);
 
